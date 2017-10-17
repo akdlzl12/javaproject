@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Dept">
+
+	<typeAlias alias="DeptVo" type="kr.co.jhta.school.vo.Dept"/>
+	
+	<select id="getAllDepts" resultClass="DeptVo">
+		select dept_no 		as no,
+			   stud_name	as name
+		from school_depts
+	</select>
+	
+	<select id="getDeptByNo" parameterClass="int" resultClass="DeptVo">
+		select dept_no 		as no,
+			   stud_name	as name
+		from school_depts
+		where dept_no = #value#
+	</select>
+ 
+</sqlMap>

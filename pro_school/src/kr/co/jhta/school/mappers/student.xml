@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="StudentVo" type="kr.co.jhta.school.vo.Student"/>
+	
+	<select id="getAllStudents" resultClass="StudentVo">
+		select stud_no			no,
+			   stud_name		name,
+			   stud_grade		grade,
+			   prof_no			"professor.no",
+			   dept_no			"dept.no"
+		from school_students	   
+	</select>
+	
+	<select id="getStudentByNo" parameterClass="int" resultClass="StudentVo">
+		select stud_no			no,
+			   stud_name		name,
+			   stud_grade		grade,
+			   prof_no			"professor.no",
+			   dept_no			"dept.no"
+		from school_students
+		where stud_no = #value#
+	</select>
+	
+	
+	<select id="getStudentsByProfessor" parameterClass="int" resultClass="StudentVo">
+		select stud_no			no,
+			   stud_name		name,
+			   stud_grade		grade,
+			   prof_no			"professor.no",
+			   dept_no			"dept.no"
+		from school_students
+		where prof_no = #value#
+	</select> 
+	
+	<select id="getStudentsByDept" parameterClass="int" resultClass="StudentVo">
+		select stud_no			no,
+			   stud_name		name,
+			   stud_grade		grade,
+			   prof_no			"professor.no",
+			   dept_no			"dept.no"
+		from school_students
+		where dept_no = #value#
+	</select>
+</sqlMap>

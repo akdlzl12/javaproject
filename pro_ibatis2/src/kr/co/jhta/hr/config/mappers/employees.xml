@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="employees">
+
+	<typeAlias alias="Emp" type="kr.co.jhta.hr.vo.Employee"/>
+	
+	<resultMap class="Emp" id="EmpMap">
+		<result column="employee_id" property="employeeId"/>
+		<result column="first_name" property="firstName"/>
+		<result column="last_name" property="lastName"/>
+		<result column="email" property="email"/>
+		<result column="phone_number" property="phoneNumber"/>
+		<result column="hire_date" property="hireDate"/>
+		<result column="job_id" property="jobId"/>
+		<result column="salary" property="salary"/>
+		<result column="commission_pct" property="commissionPct" nullValue = "0"/>
+		<result column="manager_id" property="managerId" nullValue = "0"/>
+		<result column="department_id" property="departmentId" nullValue = "0"/>
+	</resultMap>
+
+	<select id="getAllEmployees" resultMap="EmpMap">
+		select *
+		from employees
+		order by employee_id asc
+			
+	</select> 
+	
+	<select id="getEmployeeById" parameterClass="int" resultMap="EmpMap">
+		select 
+			*
+		from employees
+		where employee_id = #value#
+	</select>
+ 
+</sqlMap>

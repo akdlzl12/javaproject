@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Registration">
+	
+	<typeAlias alias="RegistrationVo" type="kr.co.jhta.school.vo.Registration"/>
+	
+	<select id="getRegistrationsByStudent" parameterClass="int" resultClass="RegistrationVo">
+		select
+			course_score	score,
+			course_no		"course.no",
+			stud_no			"student.no"
+		from school_registrations
+		where stud_no = #value#
+	</select>
+	
+	<select id="getRegistrationsByCourse" parameterClass="int" resultClass="RegistrationVo">
+		select
+			course_score	score,
+			course_no		"course.no",
+			stud_no			"student.no"
+		from school_registrations
+		where course_no = #value#
+	</select>
+	
+ 	<insert id="addRegistration" parameterClass="RegistrationVo">
+ 		insert into SCHOOL_REGISTRATIONS 
+        (stud_no, course_no, course_score)
+        values
+        (#student.no#, #course.no#, #score#)
+ 	</insert>
+</sqlMap>

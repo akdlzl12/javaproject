@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="account">
+
+	<typeAlias alias="Acc" type="kr.co.jhta.acc.vo.AccountVO"/>
+
+	<insert id="addAccountByNew">
+		insert into tb_accounts
+		values (acc_seq.nextval, #accTitle#, #accOwner#, #accBalance#, #accRates#, sysdate)
+	</insert>
+	
+	<select id="lookupAccountByInformation" parameterClass="int" resultClass="Acc">
+		select
+			acc_no				accNo,
+			acc_title			accTitle,
+			acc_owner			accOwner,
+			acc_balance			accBalance,
+			acc_rates			accRates,
+			acc_createdate		accCreatedate
+		from tb_accounts
+		where acc_no = #value#	
+	</select>
+	
+	<select id="lookupAccountByOwner" parameterClass="string" resultClass="Acc">
+		select
+			acc_no				accNo,
+			acc_title			accTitle,
+			acc_owner			accOwner,
+			acc_balance			accBalance,
+			acc_rates			accRates,
+			acc_createdate		accCreatedate
+		from tb_accounts
+		where acc_owner = #value#
+	</select>
+	
+	<delete id="deleteAccountByNo" parameterClass="int">
+		delete from tb_accounts
+		where acc_no = #value#
+	</delete>
+	
+	<select id="lookupAccountByAll" resultClass="Acc">
+		select
+			acc_no				accNo,
+			acc_title			accTitle,
+			acc_owner			accOwner,
+			acc_balance			accBalance,
+			acc_rates			accRates,
+			acc_createdate		accCreatedate
+		from tb_accounts	
+	</select>
+	
+ 
+</sqlMap>

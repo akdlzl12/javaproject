@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="product">
+	
+	<typeAlias alias="Product" type="kr.co.jhta.store.vo.Product"/>
+	
+	<!-- 
+		새로운 상품 등록
+	 -->
+	 <insert id="addProduct" parameterClass="Product">
+	 	insert into tb_store_product
+	 		(pro_no,pro_name,pro_maker,pro_price,pro_qty,pro_regdate)
+	 	values 
+	 		(pro_seq.nextval,#name#,#maker#,#price#,#qty#,sysdate)
+	 </insert>
+	<!-- 
+	 	등록된 모든 상품 조회
+	 -->
+	 <select id="getAllproducts" resultClass="Product">
+	 	select
+	 		pro_no			no,
+	 		pro_name		name,
+	 		pro_maker		maker,
+	 		pro_price		price,
+	 		pro_qty			qty,
+	 		pro_regdate		regdate
+	 	from tb_store_product	
+	 </select>
+	  
+	 <!-- 
+	  	상품이름으로 상품 조회
+	 -->
+	   <select id="searchProductsByName" parameterClass="string" resultClass="Product">
+	   	select
+	 		pro_no			no,
+	 		pro_name		name,
+	 		pro_maker		maker,
+	 		pro_price		price,
+	 		pro_qty			qty,
+	 		pro_regdate		regdate
+	 	from tb_store_product
+	 	where pro_name = #value#
+	   </select>
+	 <!-- 
+	   	상품번호로 상품 조회
+	  -->
+	    <select id="searchProductByNo" parameterClass="int" resultClass="Product">
+	    	select
+	 		pro_no			no,
+	 		pro_name		name,
+	 		pro_maker		maker,
+	 		pro_price		price,
+	 		pro_qty			qty,
+	 		pro_regdate		regdate
+	 	from tb_store_product
+	 	where pro_no = #value#
+	    </select>
+	 <!-- 
+	  	상품의 재고 변경
+	 -->
+	 
+	 <update id="updateProduct" parameterClass="Product">
+	 	update tb_store_product 
+	 	set pro_qty = #qty#
+		where pro_name = #name#
+	 </update>
+  
+ 
+</sqlMap>

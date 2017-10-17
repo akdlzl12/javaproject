@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="jobs">
+
+	<typeAlias alias="job" type="kr.co.jhta.hr.vo.Job"/>
+
+	<select id="lookupJobIdInformation" parameterClass="string" resultClass="job">
+		select
+			job_id		jobId.employeeId,
+			job_id		jobId.firstName
+		from jobs
+		where job_id = #value#	
+	</select>
+ 
+</sqlMap>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="user">
+	<typeAlias alias="User" type="kr.co.jhta.store.vo.User"/>
+	
+	<!-- 
+		새로운 사용자 등록	
+	-->
+	<insert id="addUser" parameterClass="User">
+		insert into tb_store_user
+			(user_id, user_name, user_email, user_phone, user_regdate)
+		values
+			(#id#,#name#,#email#,#phone#,sysdate)
+	</insert>
+	
+	<!-- 
+		등록된 모든사용자 조회
+	-->
+	<select id="getAllUsers" resultClass="User">
+		select
+			user_id			id, 
+			user_name		name, 
+			user_email		email, 
+			user_phone		phone, 
+			user_regdate	regdate
+		from tb_store_user	
+	</select>
+	 
+	<!-- 
+	 	이름으로 사용자 조회
+	-->
+	  <select id="searchUserByName" parameterClass="string" resultClass="User">
+	  	select
+			user_id			id, 
+			user_name		name, 
+			user_email		email, 
+			user_phone		phone, 
+			user_regdate	regdate
+		from tb_store_user
+		where user_name = #value#
+	  </select>
+	  
+	<!-- 
+	  	아이디로 사용자 조회
+	-->
+ 	<select id="searchUserById" parameterClass="string" resultClass="User">
+ 		select
+			user_id			id, 
+			user_name		name, 
+			user_email		email, 
+			user_phone		phone, 
+			user_regdate	regdate
+		from tb_store_user
+		where user_id = #value#
+ 	</select>
+</sqlMap>

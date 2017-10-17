@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Professor">
+	<typeAlias alias="ProfessorVo" type="kr.co.jhta.school.vo.Professor"/>
+	
+	
+	<select id="getProfessorsByDept" parameterClass="int" resultClass="ProfessorVo">
+		select prof_no			no,
+			   prof_name		name,
+			   prof_position	postion,
+			   dept_no			"dept.no"
+		from school_professors
+		where dept_no = #value#   
+	</select>
+	
+	
+	<select id="getProfessor" parameterClass="int" resultClass="ProfessorVo">
+		select prof_no			no,
+			   prof_name		name,
+			   prof_position	postion,
+			   dept_no			"dept.no"
+		from school_professors
+		where prof_no = #value#
+	</select>
+ 
+</sqlMap>

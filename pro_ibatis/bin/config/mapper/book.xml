@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="x">
+
+  <delete id="deleteAllbooks">
+  	delete from tb_books
+  </delete>
+  
+  <delete id="deleteBookByNo" parameterClass="int">
+  	delete from tb_books
+  	where no = #value#
+  </delete>
+  
+  <!--
+  	#변수명# : paramenterClass에서 지정한 객체의 변수명
+  -->
+  <insert id="addBook" parameterClass="vo.BookVO">
+  	insert into tb_books
+  	(no,title,author,publisher,price,pubdate,discount)
+  	values
+  	(book_seq.nextval,#title#,#author#,#publisher#,#price#,sysdate,'N')
+  </insert>
+  
+  <select id="getBookByNo" parameterClass="int" resultClass="vo.BookVO">
+  	select no,title,author,publisher, price, pubdate, discount
+  	from tb_books
+  	where no = #value#
+  
+  </select>
+  
+  <select id="getBooksByPublisher" parameterClass="string" resultClass="vo.BookVO">
+  	select no,title,author,publisher, price, pubdate, discount
+  	from tb_books
+  	where publisher = #value#
+  	order by pubdate desc
+  </select>
+ 
+</sqlMap>

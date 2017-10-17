@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="departments">
+
+	<typeAlias alias="Dept" type="kr.co.jhta.hr.vo.Department"/>
+
+	<insert id="addDepartment">
+		insert into departments (department_id, department_name, manager_id)
+		values (departments_seq.nextval,#name#,#manager.employeeId#)
+	</insert>
+	
+	<select id="getDepartmentById" parameterClass="int" resultClass="Dept">
+		select 
+   			 department_id					id,
+   			 department_name				name,
+   			 nvl(manager_id, 0)				"manager.employeeId",
+   			 nvl(location_id, 0)			locationId
+		from departments
+		where department_id = #value#
+	</select>
+</sqlMap>

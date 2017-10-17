@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="order">
+	
+	<typeAlias alias="order" type="kr.co.jhta.store.vo.Order"/>
+
+	<!-- 
+		새로운 주문정보 저장
+	 -->
+	<insert id="addOrder" parameterClass="order">
+		insert into tb_store_order
+	 		(order_no, order_regdate, order_user_id, order_pro_no, order_qty)
+	 	values 
+	 		(order_seq.nextval, sysdate, #user.id# , #product.no#, #qty#)
+	</insert>
+	<!-- 
+		주문자 아이디로 주문정보 조회
+	 --> 
+	 
+	 <select id="searchOrderByUser" parameterClass="string" resultClass="order">
+	 	select
+	 		order_no			no,
+	 		order_regdate		regdate,
+	 		order_user_id		"user.id",
+	 		order_pro_no		"product.no",
+	 		order_qty			qty
+	 	from tb_store_order
+	 	where order_user_id = #value#	
+	 </select>
+	
+	<!-- 
+		상품번호로 주문정보 조회
+	 --> 
+	 
+	 <select id="searchOrdersByProductNo" parameterClass="int" resultClass="order">
+	 	select
+	 		order_no			no,
+	 		order_regdate		regdate,
+	 		order_user_id		"user.id",
+	 		order_pro_no		"product.no",
+	 		order_qty			qty
+	 	from tb_store_order
+	 	where order_pro_no = #value#
+	 </select>
+	 
+	<!-- 
+		주문날짜로 주문정보 조회
+	 -->
+	 <select id="searchOrdersByDate" parameterClass="string" resultClass="order">
+	 	select
+	 		order_no			no,
+	 		order_regdate		regdate,
+	 		order_user_id		"user.id",
+	 		order_pro_no		"product.no",
+	 		order_qty			qty
+	 	from tb_store_order
+	 	where to_char(order_regdate, 'yyyy/mm/dd') = #value#
+	 </select>
+	
+	
+ 
+</sqlMap>

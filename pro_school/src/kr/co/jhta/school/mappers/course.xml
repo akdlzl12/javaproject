@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Course">
+	<typeAlias alias="CourseVo" type="kr.co.jhta.school.vo.Course"/>
+	
+	<select id="getAllCourses" resultClass="CourseVo">
+		select
+			course_no			no,
+			course_room			room,
+			course_quota		quota,
+			course_reg_num		regNum,
+			sub_no				"subject.no",
+			prof_no				"professor.no"
+		from school_courses			
+	</select>
+	
+	<select id="getCoursesByDept" parameterClass="int" resultClass="CourseVo">
+		select
+			course_no			no,
+			course_room			room,
+			course_quota		quota,
+			course_reg_num		regNum,
+			sub_no				"subject.no",
+			prof_no				"professor.no"
+		from school_courses	A
+		where sub_no in ((select SUB_NO
+                		  from SCHOOL_SUBJECTS
+                		  where dept_no = #value#))
+	</select>
+	
+ 	<select id="getCoursesByProfessor" parameterClass="int" resultClass="CourseVo">
+ 		select
+			course_no			no,
+			course_room			room,
+			course_quota		quota,
+			course_reg_num		regNum,
+			sub_no				"subject.no",
+			prof_no				"professor.no"
+		from school_courses
+		where prof_no = #value#
+ 	</select>
+ 	
+ 	<select id="getCourse" parameterClass="int" resultClass="CourseVo">
+ 		select
+			course_no			no,
+			course_room			room,
+			course_quota		quota,
+			course_reg_num		regNum,
+			sub_no				"subject.no",
+			prof_no				"professor.no"
+		from school_courses
+		where course_no = #value#
+ 	</select>
+ 	
+ 	<update id="updateCourseRegNumUp" parameterClass="CourseVo">
+ 		UPDATE school_courses
+		SET course_reg_num = #regNum#
+		WHERE course_no = #no#
+		and course_reg_num < course_quota
+ 	</update>
+ 	
+ 	
+</sqlMap>
